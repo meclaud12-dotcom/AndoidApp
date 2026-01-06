@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Italienisch Lernen – Web App</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">IT</div>
+      <div>
+        <p class="brand-name">Italienisch Studio</p>
+        <p class="brand-sub">Webbasierte Lern-App</p>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a href="#dashboard">Übersicht</a>
+      <a href="#flashcards">Karten</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#phrases">Phrasen</a>
+      <a href="#planner">Tagesplan</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="badge">Täglich 10 Minuten genügen</p>
+        <h1>Italienisch lernen – klar, fokussiert, interaktiv.</h1>
+        <p class="lead">Übe Wortschatz, Satzbau und Aussprache mit smarten Karten, Quizfragen und einem Lernplan, der sich an dich anpasst.</p>
+        <div class="hero-actions">
+          <button class="btn primary" id="cta-start">Jetzt loslegen</button>
+          <button class="btn ghost" id="cta-review">Letzte Runde wiederholen</button>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <p class="panel-title">Heutiger Fokus</p>
+        <div class="focus-list" id="focus-list"></div>
+        <div class="mini-progress">
+          <span>Wörter gefestigt</span>
+          <div class="progress-bar"><div id="mini-progress-bar"></div></div>
+          <span id="mini-progress-label">0/8</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <div class="section-header">
+        <div>
+          <p class="badge">Dashboard</p>
+          <h2>Dein Lernstand</h2>
+        </div>
+        <div class="pill-row">
+          <span class="pill" id="streak-pill">🔥 0 Tage Serie</span>
+          <span class="pill" id="time-pill">⏱️ 0 Minuten heute</span>
+          <span class="pill" id="mastery-pill">🌿 0 Wörter gemeistert</span>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <div class="card highlight">
+          <div class="card-header">
+            <p class="label">Schnellübung</p>
+            <button class="chip" id="start-quick">Start</button>
+          </div>
+          <h3>5 Karten, 1 Mini-Quiz</h3>
+          <ul class="list">
+            <li>Spickzettel für Höflichkeitsfloskeln</li>
+            <li>1 Fokus-Grammatik: Präsens</li>
+            <li>Fortschritt wird automatisch gespeichert</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Skills</p>
+            <span class="chip" id="skill-chip">A1 ➜ A2</span>
+          </div>
+          <div class="skill-bars" id="skill-bars"></div>
+          <p class="muted">Tipp: Mische kurze Hör- und Schreibaufgaben für bessere Behaltensquote.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Notizen</p>
+            <span class="chip subtle">privat</span>
+          </div>
+          <textarea id="notes" placeholder="Merke dir Artikel, Endungen oder Beispiele..."></textarea>
+          <button class="btn secondary" id="save-notes">Speichern</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="flashcards" class="section">
+      <div class="section-header">
+        <div>
+          <p class="badge">Karten</p>
+          <h2>Vokabeln & Phrasen</h2>
+        </div>
+        <div class="pill-row">
+          <button class="btn ghost" id="shuffle-cards">Mischen</button>
+          <button class="btn ghost" id="reset-progress">Fortschritt zurücksetzen</button>
+        </div>
+      </div>
+      <div class="interactive">
+        <div class="flashcard" id="card">
+          <p class="card-tag" id="card-topic">Alltag</p>
+          <p class="card-front" id="card-front">Buongiorno</p>
+          <p class="card-back" id="card-back">Guten Morgen</p>
+          <p class="card-example" id="card-example">Esempio: Buongiorno, come sta?</p>
+        </div>
+        <div class="controls">
+          <div class="btn-group">
+            <button class="btn primary" id="reveal">Anzeigen</button>
+            <button class="btn secondary" id="knew">Kannte ich</button>
+            <button class="btn ghost" id="next">Nächste Karte</button>
+            <button class="btn ghost" id="speak-card">Vorlesen (IT)</button>
+          </div>
+          <p class="muted" id="card-hint">Tipp: Italienische Fragen beginnen oft mit "come", "cosa" oder "quanto".</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="section">
+      <div class="section-header">
+        <div>
+          <p class="badge">Quiz</p>
+          <h2>Mini-Checks</h2>
+        </div>
+        <div class="pill-row">
+          <span class="pill" id="quiz-status">3 Fragen pro Runde</span>
+        </div>
+      </div>
+      <div class="card quiz-card">
+        <p class="label" id="quiz-type">Übersetzung</p>
+        <h3 id="quiz-question">Was bedeutet "andare"?</h3>
+        <div class="options" id="quiz-options"></div>
+        <div class="quiz-actions">
+          <button class="btn primary" id="submit-quiz">Antwort prüfen</button>
+          <button class="btn ghost" id="new-quiz">Neue Frage</button>
+        </div>
+        <p class="feedback" id="quiz-feedback">Wähle die richtige Antwort.</p>
+      </div>
+    </section>
+
+    <section id="phrases" class="section">
+      <div class="section-header">
+        <div>
+          <p class="badge">Dialoge</p>
+          <h2>Sätze für den Alltag</h2>
+        </div>
+        <div class="pill-row">
+          <select id="phrase-filter" class="select">
+            <option value="all">Alle Themen</option>
+          </select>
+          <button class="btn ghost" id="copy-phrase">Satz kopieren</button>
+          <button class="btn ghost" id="speak-phrase">Vorlesen (IT)</button>
+        </div>
+      </div>
+      <div class="phrase-panel" id="phrase-panel"></div>
+    </section>
+
+    <section id="words" class="section">
+      <div class="section-header">
+        <div>
+          <p class="badge">Top 1000</p>
+          <h2>Häufigste Wörter & Alltagssätze</h2>
+        </div>
+        <div class="pill-row">
+          <span class="pill" id="word-count">0/1000 Wörter geladen</span>
+          <button class="btn ghost" id="generate-sentence">Satz erstellen</button>
+          <button class="btn ghost" id="speak-sentence">Vorlesen</button>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Wortliste</p>
+            <input id="word-search" class="input" placeholder="Suchen (z. B. \"oggi\", \"lavoro\")" />
+          </div>
+          <div class="word-list" id="word-list"></div>
+          <div class="card-actions">
+            <button class="btn ghost" id="load-more-words">Mehr anzeigen</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Satz aus den 1000 häufigsten Wörtern</p>
+            <span class="chip subtle">alltagstauglich</span>
+          </div>
+          <div class="sentence-box">
+            <p class="sentence" id="generated-sentence">Drücke „Satz erstellen“, um loszulegen.</p>
+            <p class="muted" id="generated-translation">Übersetzung erscheint hier.</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" id="new-sentence">Neuer Satz</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planner" class="section">
+      <div class="section-header">
+        <div>
+          <p class="badge">Routine</p>
+          <h2>Tagesplan & Ziele</h2>
+        </div>
+        <div class="pill-row">
+          <span class="pill" id="plan-progress">0/3 erledigt</span>
+        </div>
+      </div>
+      <div class="plan-grid">
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Tagesplan</p>
+            <span class="chip subtle">5-10 Minuten</span>
+          </div>
+          <ul class="checklist" id="plan-list"></ul>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Grammatik-Notizen</p>
+            <span class="chip subtle">Artikel & Endungen</span>
+          </div>
+          <ul class="list" id="grammar-tips"></ul>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <p class="label">Mini-Wortfamilien</p>
+            <span class="chip subtle">Morphologie</span>
+          </div>
+          <div class="families" id="families"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Viel Spaß beim Lernen! Fortschritt wird lokal gespeichert, damit du jederzeit weitermachen kannst.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
